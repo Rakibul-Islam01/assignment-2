@@ -31,11 +31,24 @@ const deleteProductById = (productId: string) => {
 }
 
 
+//search product by id
+const searchProducts = (searchTerm: string) => {
+    const result = Product.find({ 
+        $or: [
+            { name: { $regex: searchTerm, $options: 'i' } },
+            { description: { $regex: searchTerm, $options: 'i' } }
+        ]
+    });
+    return result;
+}
+
+
 export const ProductServices = {
     createProduct,
     getAllProducts,
     getProductById,
     updateProductById,
-    deleteProductById
+    deleteProductById,
+    searchProducts
 }
 

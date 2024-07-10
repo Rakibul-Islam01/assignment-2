@@ -14,22 +14,35 @@ const createProduct = async (req: Request, res: Response) => {
 }
 
 const getAllProducts = async (req: Request, res: Response) => {
-
     try {
-        const result = await ProductServices.getAllProducts()
-        res.status(200).json({
-            success: true,
-            message: 'Product is fetched successfully',
-            data: result
-        })
+        const { searchTerm } = req.query;
+        let result;
+
+        if (searchTerm) {
+            result = await ProductServices.searchProducts(searchTerm as string);
+            res.status(200).json({
+                success: true,
+                message: `Products matching search term ${searchTerm}  fetched successfully!`,
+                data: result
+            })
+        } else {
+            result = await ProductServices.getAllProducts();
+            res.status(200).json({
+                success: true,
+                message: 'Products retrieved successfully',
+                data: result
+            });
+        }
+
+      
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Could not fetch movies!",
+            message: "Could not fetch products!",
             error: error,
-        })
+        });
     }
-}
+};
 
 const getProductById = async (req: Request, res: Response) => {
     try {
@@ -92,7 +105,8 @@ const deleteProductById = async (req: Request, res: Response) => {
         if (result) {
             res.status(200).json({
                 success: true,
-                message: 'Product deleted successfully'
+                message: 'Product deleted successfully',
+                data:null
             });
         } else {
             res.status(404).json({
@@ -108,6 +122,8 @@ const deleteProductById = async (req: Request, res: Response) => {
         });
     }
 };
+
+
 
 
 export const ProductControllers = {
