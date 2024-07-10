@@ -16,9 +16,17 @@ const getProductById = (productId: string) => {
     return result;
 }
 
+
+//update product by id
+const updateProductById = (productId: string, productData: Partial<TProduct>) => {
+    const result = Product.findByIdAndUpdate(productId, productData, { new: true });
+    return result;
+}
+
 export const ProductServices = {
     createProduct,
     getAllProducts,
-    getProductById
+    getProductById,
+    updateProductById
 }
 
