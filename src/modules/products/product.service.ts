@@ -23,10 +23,19 @@ const updateProductById = (productId: string, productData: Partial<TProduct>) =>
     return result;
 }
 
+
+//delete product by id
+const deleteProductById = (productId: string) => {
+    const result = Product.findByIdAndDelete(productId);
+    return result;
+}
+
+
 export const ProductServices = {
     createProduct,
     getAllProducts,
     getProductById,
-    updateProductById
+    updateProductById,
+    deleteProductById
 }
 

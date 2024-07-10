@@ -56,10 +56,10 @@ const getProductById = async (req: Request, res: Response) => {
     }
 };
 
-const updateProductById = async(req:Request, res:Response)=>{
+const updateProductById = async (req: Request, res: Response) => {
     try {
-        const {productId} = req.params;
-        const productData= req.body;
+        const { productId } = req.params;
+        const productData = req.body;
 
         const result = await ProductServices.updateProductById(productId, productData);
         if (result) {
@@ -83,9 +83,37 @@ const updateProductById = async(req:Request, res:Response)=>{
     }
 }
 
+
+//delete a product by id
+const deleteProductById = async (req: Request, res: Response) => {
+    try {
+        const { productId } = req.params;
+        const result = await ProductServices.deleteProductById(productId);
+        if (result) {
+            res.status(200).json({
+                success: true,
+                message: 'Product deleted successfully'
+            });
+        } else {
+            res.status(404).json({
+                success: false,
+                message: 'Product not found'
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Could not delete product!",
+            error: error,
+        });
+    }
+};
+
+
 export const ProductControllers = {
     createProduct,
     getAllProducts,
     getProductById,
-    updateProductById
+    updateProductById,
+    deleteProductById
 }
