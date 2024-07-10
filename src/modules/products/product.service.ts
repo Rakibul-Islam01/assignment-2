@@ -6,7 +6,13 @@ const createProduct =async (payLoad:TProduct) =>{
     return result;
 }
 
+const getAllProducts =() =>{
+    const result = Product.find();
+    return result;
+}
+
 export const ProductServices = {
-    createProduct
+    createProduct,
+    getAllProducts
 }
 
