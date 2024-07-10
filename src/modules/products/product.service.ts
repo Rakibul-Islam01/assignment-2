@@ -11,8 +11,14 @@ const getAllProducts =() =>{
     return result;
 }
 
+const getProductById = (productId: string) => {
+    const result = Product.findById(productId);
+    return result;
+}
+
 export const ProductServices = {
     createProduct,
-    getAllProducts
+    getAllProducts,
+    getProductById
 }
 
